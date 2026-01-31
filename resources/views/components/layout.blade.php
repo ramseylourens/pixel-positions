@@ -23,9 +23,19 @@
                 <a href="#">Salaries</a>
                 <a href="#">Companies</a>
             </div>
-            <div>
-                <a href="#">post a job</a>
-            </div>
+            @auth
+                <div>
+                    <a href="{{ route('jobs.create') }}">post a job</a>
+                    <a href="{{ route('auth.logout') }}">Log Out</a>
+                </div>
+            @endauth
+
+            @guest
+                <div>
+                    <a href="{{ route('auth.register') }}">Sign Up</a>
+                    <a href="{{ route('/auth.login') }}">Log In</a>
+                </div>
+            @endguest
         </nav>
 
         <main class="mt-10 max-w-[986px] mx-auto">
