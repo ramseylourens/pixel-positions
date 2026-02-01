@@ -11,8 +11,7 @@ jobs:
 
     steps:
       - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+        run: curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Checkout code
         uses: actions/checkout@v3
