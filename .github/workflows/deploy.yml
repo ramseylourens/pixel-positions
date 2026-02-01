@@ -26,7 +26,6 @@ jobs:
           heroku_email: "rcrlourens@gmail.com"
 
       - name: Run migrations
-        run: |
-          heroku run php artisan migrate --force --app=pixel-positions
+        run: heroku run php artisan migrate --force --app=pixel-positions
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
