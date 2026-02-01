@@ -28,9 +28,11 @@ jobs:
       - name: Composer Update
         run: composer update
 
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
       - name: Deploy
         run: |
-          cp .env.example .env
           composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader &&
           npm ci &&
           npm run build &&
