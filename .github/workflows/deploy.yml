@@ -1,4 +1,4 @@
-name: Deploy to Heroku
+name: Deploy to AWS Elastic Beanstalk
 
 on:
   push:
@@ -10,32 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          fetch-depth: 0
+          php-version: '8.2'
 
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.13.15
+      - name: Install dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
         with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "pure-island"
-          heroku_email: "rcrlourens@gmail.com"
-
-      - name: Composer Update
-        run: composer update
-
-      - name: Deploy
-        run: |
-          composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader &&
-          npm ci &&
-          npm run build &&
-          php artisan migrate --force &&
-          php artisan optimize:clear &&
-          php artisan config:cache &&
-          php artisan route:cache
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: pixel-positions
+          environment_name: pixel-positions-env
+          version_label: ${{ github.sha }}
+          region: us-east-1
+          deployment_package: deploy.zip
