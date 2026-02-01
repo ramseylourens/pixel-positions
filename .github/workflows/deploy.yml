@@ -25,6 +25,9 @@ jobs:
           heroku_app_name: "pixel-positions"
           heroku_email: "rcrlourens@gmail.com"
 
+      - name: Composer Install
+        run: composer install
+
       - name: Run migrations
         run: php artisan migrate --force --app=pixel-positions
         env:
