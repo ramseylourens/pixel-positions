@@ -33,7 +33,7 @@
             @guest
                 <div>
                     <a href="{{ route('auth.register') }}">Sign Up</a>
-                    <a href="{{ route('/auth.login') }}">Log In</a>
+                    <a href="{{ route('auth.login') }}">Log In</a>
                 </div>
             @endguest
         </nav>

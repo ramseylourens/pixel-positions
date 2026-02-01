@@ -2,6 +2,9 @@
     <x-page-heading>Login</x-page-heading>
 
     <x-forms.form method="POST" action="/login">
+
+        @csrf
+
         <x-forms.input label="Email" name="email" type="email" />
         <x-forms.input label="Password" name="password" type="password" />
 
