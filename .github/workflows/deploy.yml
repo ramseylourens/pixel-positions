@@ -32,6 +32,6 @@ jobs:
         run: composer install
 
       - name: Run migrations
-        run: php artisan migrate --force --app=pixel-positions
+        run: php artisan migrate --force
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
