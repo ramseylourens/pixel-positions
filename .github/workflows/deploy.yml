@@ -28,10 +28,14 @@ jobs:
       - name: Composer Update
         run: composer update
 
-      - name: Composer Install
-        run: composer install
-
-      - name: Run migrations
-        run: php artisan migrate --force
+      - name: Deploy
+        run: |
+          composer install --no-interaction --prefer-dist --no-dev --optimize-autoloader &&
+          npm ci &&
+          npm run build &&
+          php artisan migrate --force &&
+          php artisan optimize:clear &&
+          php artisan config:cache &&
+          php artisan route:cache
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
