@@ -25,6 +25,9 @@ jobs:
           heroku_app_name: "pixel-positions"
           heroku_email: "rcrlourens@gmail.com"
 
+      - name: Composer Update
+        run: composer update
+
       - name: Composer Install
         run: composer install
 
