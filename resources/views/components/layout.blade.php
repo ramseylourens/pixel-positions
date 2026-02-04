@@ -26,7 +26,11 @@
             @auth
                 <div>
                     <a href="{{ route('jobs.create') }}">post a job</a>
-                    <a href="{{ route('auth.logout') }}">Log Out</a>
+                    <x-forms.form method="POST" action="/logout" class="inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button>Log Out</button>
+                    </x-forms.form>
                 </div>
             @endauth
 
