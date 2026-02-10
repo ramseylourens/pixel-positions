@@ -25,7 +25,7 @@
             </div>
             @auth
                 <div>
-                    <a href="{{ route('jobs.create') }}">post a job</a>
+                    <a href="{{ route('jobs.create') }}">Post a job</a>
                     <x-forms.form method="POST" action="/logout" class="inline-block">
                         @csrf
                         @method('DELETE')
