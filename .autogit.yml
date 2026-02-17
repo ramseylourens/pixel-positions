@@ -20,7 +20,7 @@ hooks:
   install_after: |
 
     # Install PHP dependencies
-    composer install --no-dev --optimize-autoloader --no-interaction
+    composer install --optimize-autoloader --no-interaction
 
     # Install and build frontend assets
     npm ci
