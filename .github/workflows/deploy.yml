@@ -20,7 +20,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ramsey.ssh.transip.me >> ~/.ssh/known_hosts
 
-      - name: Push to TransIP AutoGit
+      - name: Clone GitHub Repository
         run: |
-          git remote add transip ramseylourenscom@ramsey.ssh.transip.me:auto.git
-          git push transip main:pixel-positions --force
+          cd /subsites
+          git clone git@github.com:ramseylourens/pixel-positions.git pixel-postions.ramseylourens.com
