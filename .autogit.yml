@@ -41,7 +41,10 @@ hooks:
   symlink_before: |
     exit 0
   symlink_after: |
-    cd /data/sites/web/ramseylourenscom/subsites/pixel-positions
+    # Create .env from example if it doesn't exist yet
+    if [ ! -f .env ]; then
+      cp .env.example .env
+    fi
 
     # Generate app key if not set
     php artisan key:generate --force
