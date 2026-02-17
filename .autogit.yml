@@ -43,6 +43,9 @@ hooks:
   symlink_after: |
     cd /data/sites/web/ramseylourenscom/subsites/pixel-positions
 
+    # Generate app key if not set
+    php artisan key:generate --force
+
     # Run Laravel post-deploy commands
     php artisan migrate --force
     php artisan config:cache
