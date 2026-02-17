@@ -1,9 +1,7 @@
-name: Deploy to AWS Elastic Beanstalk
+name: Deploy to TransIP
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,29 +10,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          fetch-depth: 0
 
-      - name: Composer Update
-        run: composer update
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.TRANSIP_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ramsey.ssh.transip.me >> ~/.ssh/known_hosts
 
-      - name: Install dependencies
-        run: composer install --no-dev --optimize-autoloader
-
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
-
-      - name: Deploy to Elastic Beanstalk
-        uses: einaregilsson/beanstalk-deploy@v21
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: pixel-positions
-          environment_name: pixel-positions-env
-          version_label: ${{ github.sha }}
-          region: us-east-1
-          deployment_package: deploy.zip
-          use_existing_version_if_available: true
+      - name: Push to TransIP AutoGit
+        run: |
+          git remote add transip ramseylourenscom@ramsey.ssh.transip.me:auto.git
+          git push transip main:pixel-positions --force
