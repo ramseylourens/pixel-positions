@@ -1,6 +1,10 @@
 # Pixel Positions
 
-Just a demo to showcase i completed this course on how laravel works in addition to that I deployed it to [TransIP](https://www.transip.nl/) using [Autogit](https://www.transip.nl/knowledgebase/6629-autogit-activeren-op-een-webhostingpakket) and [GitHub Actions](https://docs.github.com/en/actions)
+Just a demo to showcase I completed the course "30 Days to Learn Laravel" by Jeffrey Way
+
+- Deployed to [TransIP](https://www.transip.nl/) 
+- [Autogit](https://www.transip.nl/knowledgebase/6629-autogit-activeren-op-een-webhostingpakket) 
+- [GitHub Actions](https://docs.github.com/en/actions)
 
 [Course](https://www.youtube.com/watch?v=SqTdHCTWqks)
 
