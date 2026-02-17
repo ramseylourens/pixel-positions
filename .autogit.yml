@@ -2,6 +2,8 @@
 # Autogit - config and deploy hooks                                                   #
 #######################################################################################
 
+branch: pixel-positions
+
 shared_files: [ .env ]
 shared_folders: [ storage, bootstrap/cache ]
 
@@ -16,7 +18,6 @@ hooks:
   install_before: |
     exit 0
   install_after: |
-    cd /data/sites/web/ramseylourenscom/subsites/pixel-positions.ramseylourens.com
 
     # Install PHP dependencies
     composer install --no-dev --optimize-autoloader --no-interaction
