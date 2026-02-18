@@ -14,5 +14,4 @@ Just a demo to showcase I completed the course "30 Days to Learn Laravel" by Jef
 [Course](https://www.youtube.com/watch?v=SqTdHCTWqks)
 
 [Live Website](https://pixel-positions.ramseylourens.com)
-- Resets everyday at midnight
  
