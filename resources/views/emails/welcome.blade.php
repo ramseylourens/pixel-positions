@@ -5,7 +5,7 @@ Thank you for registering with {{ config('app.name') }}.
 
 We're excited to have you on board!
 
-@component('mail::button', ['url' => route('login')])
+@component('mail::button', ['url' => route('auth.login')])
 Get Started
 @endcomponent
 
