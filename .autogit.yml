@@ -41,8 +41,13 @@ hooks:
   symlink_before: |
     exit 0
   symlink_after: |
+    # Clear ALL caches first
+    php artisan cache:clear
+    php artisan config:clear
+    php artisan view:clear
 
     # Run Laravel post-deploy commands
+
     php artisan migrate --seed --force
     php artisan config:cache
     php artisan route:cache
