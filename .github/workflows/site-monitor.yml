@@ -35,8 +35,8 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "🚨 Site Down Alert - pixel-positions.ramseylourens.com"
-          to: your-email@example.com
-          from: alerts@yourdomain.com
+          to: rcrlourens@gmail.com
+          from: pixel-positions@yramseylourens.com
           body: |
             Your site pixel-positions.ramseylourens.com is DOWN!
 
