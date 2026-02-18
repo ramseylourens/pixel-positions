@@ -12,8 +12,7 @@ on:
 env:
   TRANSIP_HOST: ramsey.ssh.transip.me
   TRANSIP_USER: ramseylourenscom
-  DEPLOY_PATH: /data/sites/web/ramseylourenscom/subsites/pixel-positions
-
+  DEPLOY_PATH: /data/sites/web/ramseylourenscom/checkout/pixel-positions/current
 jobs:
   seed:
     runs-on: ubuntu-latest
