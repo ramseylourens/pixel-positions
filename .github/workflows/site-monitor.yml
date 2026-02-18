@@ -24,3 +24,25 @@ jobs:
             echo "code=$response" >> $GITHUB_OUTPUT
             exit 1
           fi
+
+      - name: Send email on failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "🚨 Site Down Alert - pixel-positions.ramseylourens.com"
+          to: your-email@example.com
+          from: alerts@yourdomain.com
+          body: |
+            Your site pixel-positions.ramseylourens.com is DOWN!
+
+            Status Code: ${{ steps.health_check.outputs.code }}
+            Time: ${{ github.event.head_commit.timestamp }}
+
+            Check it here: https://pixel-positions.ramseylourens.com
+
+            GitHub Actions Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
