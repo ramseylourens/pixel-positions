@@ -25,7 +25,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ env.TRANSIP_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Run Database Seeder (Fresh)
+      - name: Run Datase Migration (Fresh)
         if: inputs.fresh == true
         run: |
           ssh ${{ env.TRANSIP_USER }}@${{ env.TRANSIP_HOST }} << 'EOF'
@@ -34,7 +34,7 @@ jobs:
             echo "✅ Database reset and seeded"
           EOF
 
-      - name: Run Database Seeder (Keep Data)
+      - name: Run Datase Migration (Keep Data)
         if: inputs.fresh == false
         run: |
           ssh ${{ env.TRANSIP_USER }}@${{ env.TRANSIP_HOST }} << 'EOF'
