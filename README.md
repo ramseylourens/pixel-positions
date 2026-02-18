@@ -7,6 +7,7 @@ Just a demo to showcase I completed the course "30 Days to Learn Laravel" by Jef
 - Deployed to [TransIP](https://www.transip.nl/) 
 - [Autogit](https://www.transip.nl/knowledgebase/6629-autogit-activeren-op-een-webhostingpakket) 
 - [GitHub Actions](https://docs.github.com/en/actions)
+- Uses an MySQL Database instead of SQLite
 - Usage of [TransIP](https://www.transip.nl/) Cron jobs\
   Executes a PHP script every 5 minutes to run laravel schedule:run which executes Jobs(support for sending emails)
 
