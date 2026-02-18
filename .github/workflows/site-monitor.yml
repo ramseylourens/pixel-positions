@@ -1,0 +1,48 @@
+name: Site Health Check
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if site is live
+        id: health_check
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://pixel-positions.ramseylourens.com)
+
+          if [ $response -eq 200 ]; then
+            echo "✅ Site is UP - Status: $response"
+            echo "status=up" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Site is DOWN - Status: $response"
+            echo "status=down" >> $GITHUB_OUTPUT
+            echo "code=$response" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Send email on failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "🚨 Site Down Alert - pixel-positions.ramseylourens.com"
+          to: hallo@ramseylourens.com
+          from: rcrlourens@gmail.com
+          body: |
+            Your site pixel-positions.ramseylourens.com is DOWN!
+
+            Status Code: ${{ steps.health_check.outputs.code }}
+            Time: ${{ github.event.head_commit.timestamp }}
+
+            Check it here: https://pixel-positions.ramseylourens.com
+
+            GitHub Actions Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

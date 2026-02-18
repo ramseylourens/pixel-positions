@@ -10,3 +10,4 @@ Just a demo to showcase I completed the course "30 Days to Learn Laravel" by Jef
 
 [Live Website](https://pixel-positions.ramseylourens.com)
 - Resets everyday at midnight
+ 
