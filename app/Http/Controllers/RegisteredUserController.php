@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeEmail;
 use App\Models\User;
-use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\Rules\Password;
 
@@ -47,6 +48,9 @@ class RegisteredUserController extends Controller
         ]);
 
         Auth::login($user);
+
+        // Send welcome email
+        Mail::to($user->email)->send(new WelcomeEmail($user));
 
         return redirect('/');
     }

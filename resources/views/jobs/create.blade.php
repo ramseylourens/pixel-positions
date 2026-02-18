@@ -3,7 +3,7 @@
         New Job
     </x-page-heading>
 
-    <x-forms.form method="POSt" action="/jobs">
+    <x-forms.form method="POST" action="/jobs">
 
         @csrf
 
