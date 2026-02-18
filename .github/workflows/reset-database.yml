@@ -1,4 +1,4 @@
-name: Seed Database
+name: Migrate Database
 
 on:
   workflow_dispatch:
