@@ -1,5 +1,7 @@
 # Pixel Positions
 
+[![Site Health Check](https://github.com/ramseylourens/pixel-positions/actions/workflows/site-monitor.yml/badge.svg)](https://github.com/ramseylourens/pixel-positions/actions/workflows/site-monitor.yml)
+
 Just a demo to showcase I completed the course "30 Days to Learn Laravel" by Jeffrey Way
 
 - Deployed to [TransIP](https://www.transip.nl/) 
