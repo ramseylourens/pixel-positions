@@ -41,9 +41,11 @@ hooks:
   symlink_before: |
     exit 0
   symlink_after: |
-    # Clear ALL caches first
-    php artisan cache:clear
+    # Clear config FIRST (removes cached config pointing to SQLite)
     php artisan config:clear
+
+    # NOW clear cache (will read fresh .env)
+    php artisan cache:clear
     php artisan view:clear
 
     # Run Laravel post-deploy commands
