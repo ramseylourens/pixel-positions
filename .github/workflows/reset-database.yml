@@ -1,7 +1,13 @@
-name: Reset Database
+name: Seed Database
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  workflow_dispatch:
+    inputs:
+      fresh:
+        description: 'Fresh migration (WARNING: drops all tables)'
+        required: true
+        type: boolean
+        default: false
 
 env:
   TRANSIP_HOST: ramsey.ssh.transip.me
@@ -20,13 +26,20 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ env.TRANSIP_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Run Database Seeder
+      - name: Run Database Seeder (Fresh)
+        if: inputs.fresh == true
         run: |
           ssh ${{ env.TRANSIP_USER }}@${{ env.TRANSIP_HOST }} << 'EOF'
             cd ${{ env.DEPLOY_PATH }}
             php artisan migrate:fresh --seed --force
-            echo "✅ Database seeded successfully"
+            echo "✅ Database reset and seeded"
           EOF
 
-      - name: Report Success
-        run: echo "Database seeding completed at $(date)"
+      - name: Run Database Seeder (Keep Data)
+        if: inputs.fresh == false
+        run: |
+          ssh ${{ env.TRANSIP_USER }}@${{ env.TRANSIP_HOST }} << 'EOF'
+            cd ${{ env.DEPLOY_PATH }}
+            php artisan db:seed --force
+            echo "✅ Database seeded (existing data preserved)"
+          EOF
