@@ -39,7 +39,22 @@ hooks:
 
   # SYMLINK: Set current symlink to newest release
   symlink_before: |
+
+    # Run tests BEFORE switching to new release
+    echo "Running tests..."
+
+    php artisan config:clear
+    php artisan test
+
+    # If tests fail, deployment stops here and old version stays live
+    if [ $? -ne 0 ]; then
+      echo "Tests failed! Aborting deployment."
+      exit 1
+    fi
+
+    echo "Tests passed! Proceeding with deployment..."
     exit 0
+
   symlink_after: |
     # Clear config FIRST (removes cached config pointing to SQLite)
     php artisan config:clear
